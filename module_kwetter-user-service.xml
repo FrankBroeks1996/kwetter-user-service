@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_kwetter-user-service" default="compile.module.kwetter-user-service">
+  <dirname property="module.kwetter-user-service.basedir" file="${ant.file.module_kwetter-user-service}"/>
+  
+  <property name="module.jdk.home.kwetter-user-service" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.kwetter-user-service" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.kwetter-user-service" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.kwetter-user-service" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="kwetter-user-service.output.dir" value="${module.kwetter-user-service.basedir}/target/classes"/>
+  <property name="kwetter-user-service.testoutput.dir" value="${module.kwetter-user-service.basedir}/target/test-classes"/>
+  
+  <path id="kwetter-user-service.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="kwetter-user-service.module.production.classpath">
+    <path refid="${module.jdk.classpath.kwetter-user-service}"/>
+    <path refid="library.maven:_com.h2database:h2:1.4.192.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.resteasy:jaxrs-api:3.0.10.final.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:5.1.3.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_com.fasterxml:classmate:1.0.0.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.2_spec:2.2.8.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-jpamodelgen:4.3.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging-annotations:1.2.0.beta1.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator-annotation-processor:5.1.3.final.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api-base:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-spi:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-jersey:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-api:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-base:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_javassist:javassist:3.12.1.ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-client:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-common:2.8.classpath"/>
+    <path refid="library.maven:_javax.annotation:javax.annotation-api:1.2.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:osgi-resource-locator:1.0.1.classpath"/>
+    <path refid="library.maven:_javax.ws.rs:javax.ws.rs-api:2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-api:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-utils:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:aopalliance-repackaged:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:javax.inject:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-locator:2.2.0.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.ext:jersey-proxy-client:2.6.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_io.jsonwebtoken:jjwt:0.7.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.8.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.8.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.8.2.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:1.0.1.final.classpath"/>
+    <path refid="library.maven:_javax:javaee-api:7.0.classpath"/>
+    <path refid="library.maven:_com.sun.mail:javax.mail:1.5.1.classpath"/>
+    <path refid="library.maven:_javax.activation:activation:1.1.1.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.4.0.final.classpath"/>
+  </path>
+  
+  <path id="kwetter-user-service.runtime.production.module.classpath">
+    <pathelement location="${kwetter-user-service.output.dir}"/>
+    <path refid="library.maven:_com.h2database:h2:1.4.192.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api-base:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-spi:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-jersey:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-api:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-base:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_javassist:javassist:3.12.1.ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-client:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-common:2.8.classpath"/>
+    <path refid="library.maven:_javax.annotation:javax.annotation-api:1.2.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:osgi-resource-locator:1.0.1.classpath"/>
+    <path refid="library.maven:_javax.ws.rs:javax.ws.rs-api:2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-api:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-utils:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:aopalliance-repackaged:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:javax.inject:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-locator:2.2.0.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.ext:jersey-proxy-client:2.6.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_io.jsonwebtoken:jjwt:0.7.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.8.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.8.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.8.2.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:1.0.1.final.classpath"/>
+    <path refid="library.maven:_javax:javaee-api:7.0.classpath"/>
+    <path refid="library.maven:_com.sun.mail:javax.mail:1.5.1.classpath"/>
+    <path refid="library.maven:_javax.activation:activation:1.1.1.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.4.0.final.classpath"/>
+  </path>
+  
+  <path id="kwetter-user-service.module.classpath">
+    <path refid="${module.jdk.classpath.kwetter-user-service}"/>
+    <pathelement location="${kwetter-user-service.output.dir}"/>
+    <path refid="library.maven:_com.h2database:h2:1.4.192.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.resteasy:jaxrs-api:3.0.10.final.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:5.1.3.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_com.fasterxml:classmate:1.0.0.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.2_spec:2.2.8.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-jpamodelgen:4.3.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging-annotations:1.2.0.beta1.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator-annotation-processor:5.1.3.final.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.junit:arquillian-junit-container:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.junit:arquillian-junit-core:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api-base:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-spi:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-impl-base:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-spi:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-core:2.4.8.final.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-api:2.4.sp2.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-spi:2.4.sp2.classpath"/>
+    <path refid="library.maven:_org.jboss.classfilewriter:jboss-classfilewriter:1.1.2.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.el:jboss-el-api_3.0_spec:1.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-jersey:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-api:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-base:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_javassist:javassist:3.12.1.ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-client:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-common:2.8.classpath"/>
+    <path refid="library.maven:_javax.annotation:javax.annotation-api:1.2.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:osgi-resource-locator:1.0.1.classpath"/>
+    <path refid="library.maven:_javax.ws.rs:javax.ws.rs-api:2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-api:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-utils:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:aopalliance-repackaged:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:javax.inject:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-locator:2.2.0.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.ext:jersey-proxy-client:2.6.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_io.jsonwebtoken:jjwt:0.7.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.8.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.8.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.8.2.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:1.0.1.final.classpath"/>
+    <path refid="library.maven:_javax:javaee-api:7.0.classpath"/>
+    <path refid="library.maven:_com.sun.mail:javax.mail:1.5.1.classpath"/>
+    <path refid="library.maven:_javax.activation:activation:1.1.1.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.4.0.final.classpath"/>
+  </path>
+  
+  <path id="kwetter-user-service.runtime.module.classpath">
+    <pathelement location="${kwetter-user-service.testoutput.dir}"/>
+    <pathelement location="${kwetter-user-service.output.dir}"/>
+    <path refid="library.maven:_com.h2database:h2:1.4.192.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.resteasy:jaxrs-api:3.0.10.final.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator:5.1.3.final.classpath"/>
+    <path refid="library.maven:_javax.validation:validation-api:1.1.0.final.classpath"/>
+    <path refid="library.maven:_com.fasterxml:classmate:1.0.0.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.2_spec:2.2.8.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-jpamodelgen:4.3.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging-annotations:1.2.0.beta1.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-validator-annotation-processor:5.1.3.final.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.junit:arquillian-junit-container:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.junit:arquillian-junit-core:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api-base:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.test:arquillian-test-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-api:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.config:arquillian-config-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-spi:2.0.0-alpha-3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.container:arquillian-container-test-impl-base:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-impl-base:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.shrinkwrap:shrinkwrap-spi:1.1.2.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-core:2.4.8.final.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-api:2.4.sp2.classpath"/>
+    <path refid="library.maven:_org.jboss.weld:weld-spi:2.4.sp2.classpath"/>
+    <path refid="library.maven:_org.jboss.classfilewriter:jboss-classfilewriter:1.1.2.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.el:jboss-el-api_3.0_spec:1.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-jersey:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-api:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.extension:arquillian-rest-client-impl-base:1.0.0.alpha3.classpath"/>
+    <path refid="library.maven:_javassist:javassist:3.12.1.ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-client:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.core:jersey-common:2.8.classpath"/>
+    <path refid="library.maven:_javax.annotation:javax.annotation-api:1.2.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.8.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:osgi-resource-locator:1.0.1.classpath"/>
+    <path refid="library.maven:_javax.ws.rs:javax.ws.rs-api:2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-api:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-utils:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:aopalliance-repackaged:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2.external:javax.inject:2.2.0.classpath"/>
+    <path refid="library.maven:_org.glassfish.hk2:hk2-locator:2.2.0.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_org.glassfish.jersey.ext:jersey-proxy-client:2.6.classpath"/>
+    <path refid="library.maven:_org.jboss.arquillian.core:arquillian-core-spi:1.1.2.final-wildfly-1.classpath"/>
+    <path refid="library.maven:_io.jsonwebtoken:jjwt:0.7.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.8.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.8.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.8.2.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:1.0.1.final.classpath"/>
+    <path refid="library.maven:_javax:javaee-api:7.0.classpath"/>
+    <path refid="library.maven:_com.sun.mail:javax.mail:1.5.1.classpath"/>
+    <path refid="library.maven:_javax.activation:activation:1.1.1.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.4.0.final.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.kwetter-user-service">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.kwetter-user-service">
+    <patternset refid="excluded.from.module.kwetter-user-service"/>
+  </patternset>
+  
+  <path id="kwetter-user-service.module.sourcepath">
+    <dirset dir="${module.kwetter-user-service.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+      <include name="target/generated-sources/annotations"/>
+    </dirset>
+  </path>
+  
+  <path id="kwetter-user-service.module.test.sourcepath">
+    <dirset dir="${module.kwetter-user-service.basedir}">
+      <include name="src/test/java"/>
+      <include name="src/test/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.kwetter-user-service" depends="compile.module.kwetter-user-service.production,compile.module.kwetter-user-service.tests" description="Compile module Kwetter-user-service"/>
+  
+  <target name="compile.module.kwetter-user-service.production" depends="register.custom.compilers" description="Compile module Kwetter-user-service; production classes">
+    <mkdir dir="${kwetter-user-service.output.dir}"/>
+    <javac2 destdir="${kwetter-user-service.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.kwetter-user-service}/javac">
+      <compilerarg line="${compiler.args.kwetter-user-service}"/>
+      <bootclasspath refid="kwetter-user-service.module.bootclasspath"/>
+      <classpath refid="kwetter-user-service.module.production.classpath"/>
+      <src refid="kwetter-user-service.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.kwetter-user-service"/>
+    </javac2>
+    
+    <copy todir="${kwetter-user-service.output.dir}">
+      <fileset dir="${module.kwetter-user-service.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.kwetter-user-service.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.kwetter-user-service.basedir}/target/generated-sources/annotations">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.kwetter-user-service.tests" depends="register.custom.compilers,compile.module.kwetter-user-service.production" description="compile module Kwetter-user-service; test classes" unless="skip.tests">
+    <mkdir dir="${kwetter-user-service.testoutput.dir}"/>
+    <javac2 destdir="${kwetter-user-service.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.kwetter-user-service}/javac">
+      <compilerarg line="${compiler.args.kwetter-user-service}"/>
+      <bootclasspath refid="kwetter-user-service.module.bootclasspath"/>
+      <classpath refid="kwetter-user-service.module.classpath"/>
+      <src refid="kwetter-user-service.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.kwetter-user-service"/>
+    </javac2>
+    
+    <copy todir="${kwetter-user-service.testoutput.dir}">
+      <fileset dir="${module.kwetter-user-service.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.kwetter-user-service.basedir}/src/test/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.kwetter-user-service" description="cleanup module">
+    <delete dir="${kwetter-user-service.output.dir}"/>
+    <delete dir="${kwetter-user-service.testoutput.dir}"/>
+  </target>
+</project>
