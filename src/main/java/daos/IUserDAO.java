@@ -4,13 +4,14 @@ import models.User;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface IUserDAO {
     void addUser(User user);
 
     void editUser(User user);
 
-    User getUserByName(String name);
+    User getUserById(UUID userId);
 
     void followUser(User currentUser, User userToBeFollowed);
 

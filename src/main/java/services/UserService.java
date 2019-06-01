@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Stateless
 public class UserService {
@@ -18,8 +19,8 @@ public class UserService {
         userDAO.addUser(user);
     }
 
-    public User getUserByName(String name){
-        return userDAO.getUserByName(name);
+    public User getUserById(UUID userId){
+        return userDAO.getUserById(userId);
     }
 
     public void editUser(User user){

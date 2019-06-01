@@ -14,6 +14,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Path("user")
 public class UserController {
@@ -27,11 +28,11 @@ public class UserController {
     public UserController(){}
 
     @GET
-    @Path("getUserByName/{username}")
+    @Path("getUserById/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     @TokenNeeded
-    public UserDTO getUserByName(@PathParam("username") String username){
-        UserDTO userDTO = new UserDTO(userService.getUserByName(username));
+    public UserDTO getUserById(@PathParam("userId") String userId){
+        UserDTO userDTO = new UserDTO(userService.getUserById(UUID.fromString(userId)));
         return userDTO;
     }
 
@@ -42,7 +43,7 @@ public class UserController {
     @TokenNeeded
     public Response editUser(UserDTO userDTO){
         try {
-            User user = userService.getUserByName(userDTO.getUsername());
+            User user = userService.getUserById(UUID.fromString(userDTO.getUsername()));
             user.setBio(userDTO.getBio());
             user.setLocation(userDTO.getLocation());
             user.setWebsite(userDTO.getWebsite());
@@ -60,8 +61,8 @@ public class UserController {
     @TokenNeeded
     public void followUser(@PathParam("username") String username){
         Principal principal = context.getUserPrincipal();
-        User currentUser = userService.getUserByName(principal.getName());
-        User userToBeFollowed = userService.getUserByName(username);
+        User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
+        User userToBeFollowed = userService.getUserById(UUID.fromString(username));
 
         userService.followUser(currentUser, userToBeFollowed);
     }
@@ -71,20 +72,20 @@ public class UserController {
     @TokenNeeded
     public void unFollowUser(@PathParam("username") String username){
         Principal principal = context.getUserPrincipal();
-        User currentUser = userService.getUserByName(principal.getName());
-        User userToBeUnfollowed = userService.getUserByName(username);
+        User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
+        User userToBeUnfollowed = userService.getUserById(UUID.fromString(username));
 
         userService.unFollowUser(currentUser, userToBeUnfollowed);
     }
 
     @GET
-    @Path("isFollowing/{username}")
+    @Path("isFollowing/{userId}")
     @TokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean isFollowing(@PathParam("username") String username){
+    public boolean isFollowing(@PathParam("userId") String userId){
         Principal principal = context.getUserPrincipal();
-        User currentUser = userService.getUserByName(principal.getName());
-        User checkUser = userService.getUserByName(username);
+        User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
+        User checkUser = userService.getUserById(UUID.fromString(userId));
 
         return userService.isFollowing(currentUser, checkUser);
     }
@@ -102,7 +103,7 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @TokenNeeded
     public List<UserDTO> getAllFollowing(@PathParam("username") String username){
-        User currentUser = userService.getUserByName(username);
+        User currentUser = userService.getUserById(UUID.fromString(username));
 
         List<UserDTO> usersFollowingDtoList = new ArrayList<>();
         for (User user : userService.getAllFollowing(currentUser)){
@@ -117,7 +118,7 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @TokenNeeded
     public List<UserDTO> getAllFollowers(@PathParam("username") String username){
-        User currentUser = userService.getUserByName(username);
+        User currentUser = userService.getUserById(UUID.fromString(username));
 
         List<UserDTO> usersFollowerDtoList = new ArrayList<>();
         for (User user : userService.getAllFollowers(currentUser)){

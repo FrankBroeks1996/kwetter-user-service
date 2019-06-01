@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Stateless
 @Default
@@ -28,8 +29,8 @@ public class UserDAOImpl implements IUserDAO {
         em.merge(user);
     }
 
-    public User getUserByName(String name){
-        return em.createNamedQuery("User.getUserByName", User.class).setParameter("name", name).getSingleResult();
+    public User getUserById(UUID userId){
+        return em.createNamedQuery("User.getUserById", User.class).setParameter("id", userId).getSingleResult();
     }
 
     public void followUser(User currentUser, User userToBeFollowed){

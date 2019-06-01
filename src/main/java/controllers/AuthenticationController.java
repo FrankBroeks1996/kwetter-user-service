@@ -40,7 +40,7 @@ public class AuthenticationController {
             user.setUsername(registerDTO.getUsername());
             user.setPassword(registerDTO.getPassword());
             if(userService.login(user)) {
-                String token = issueToken(user.getUsername());
+                String token = issueToken(user.getUsername(), user.getId().toString());
 
                 return Response.ok().header(AUTHORIZATION, "Bearer " + token).header("Access-Control-Expose-Headers", "Authorization").build();
             }else{
@@ -64,7 +64,7 @@ public class AuthenticationController {
             user.setPassword(registerDTO.getPassword());
             userService.addUser(user);
 
-            String token = issueToken(user.getUsername());
+            String token = issueToken(user.getUsername(), user.getId().toString());
             return Response.ok().header(AUTHORIZATION, "Bearer " + token).header("Access-Control-Expose-Headers", "Authorization").build();
         }catch (Exception e){
             e.printStackTrace();
@@ -72,7 +72,7 @@ public class AuthenticationController {
         }
     }
 
-    private String issueToken(String username){
+    private String issueToken(String username, String userId){
         Key key = keyGenerator.generateKey();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -80,6 +80,7 @@ public class AuthenticationController {
 
         String jwtToken = Jwts.builder()
                 .setSubject(username)
+                .setId(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(newDate)
                 .signWith(SignatureAlgorithm.HS512, key)

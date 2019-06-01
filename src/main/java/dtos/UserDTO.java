@@ -19,12 +19,6 @@ public class UserDTO {
 
     private String profilePicturePath;
 
-    private Role role;
-
-    private List<UUID> kweets;
-
-    private List<UUID> mentionedIn;
-
     public UserDTO(){}
 
     public UserDTO(User user){
@@ -34,7 +28,6 @@ public class UserDTO {
         this.website = user.getWebsite();
         this.bio = user.getBio();
         this.profilePicturePath = user.getProfilePicturePath();
-        this.role = user.getRole();
     }
 
     public UUID getId() {
@@ -83,29 +76,5 @@ public class UserDTO {
 
     public void setProfilePicturePath(String profilePicturePath) {
         this.profilePicturePath = profilePicturePath;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<UUID> getKweets() {
-        return kweets;
-    }
-
-    public void setKweets(List<UUID> kweets) {
-        this.kweets = kweets;
-    }
-
-    public List<UUID> getMentionedIn() {
-        return mentionedIn;
-    }
-
-    public void setMentionedIn(List<UUID> mentionedIn) {
-        this.mentionedIn = mentionedIn;
     }
 }

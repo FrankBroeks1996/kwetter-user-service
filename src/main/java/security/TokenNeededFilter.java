@@ -19,6 +19,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.security.Key;
 import java.security.Principal;
+import java.util.UUID;
 
 @Provider
 @TokenNeeded
@@ -44,14 +45,14 @@ public class TokenNeededFilter implements ContainerRequestFilter {
         String token = authorizationHeader.substring("Bearer".length()).trim();
 
         try {
-            final String username = validateToken(token);
+            final Claims claims = validateToken(token);
 
             final SecurityContext currentSecurityContext = containerRequestContext.getSecurityContext();
             containerRequestContext.setSecurityContext(new SecurityContext() {
 
                 @Override
                 public Principal getUserPrincipal() {
-                    return () -> username;
+                    return () -> claims.getId();
                 }
 
                 @Override
@@ -61,7 +62,7 @@ public class TokenNeededFilter implements ContainerRequestFilter {
 
                 @Override
                 public boolean isUserInRole(String role) {
-                    User user = userService.getUserByName(username);
+                    User user = userService.getUserById(UUID.fromString(claims.getId()));
                     return user.getRole().toString().equals(role);
                 }
 
@@ -88,9 +89,9 @@ public class TokenNeededFilter implements ContainerRequestFilter {
                         .build());
     }
 
-    private String validateToken(String token) {
+    private Claims validateToken(String token) {
         Key key = keyGenerator.generateKey();
         Jws<Claims> jws = Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-        return jws.getBody().getSubject();
+        return jws.getBody();
     }
 }

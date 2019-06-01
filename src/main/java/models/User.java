@@ -8,7 +8,7 @@ import java.util.*;
 @Entity
 @Table(name = "USER")
 @NamedQueries({
-        @NamedQuery(name = "User.getUserByName", query = "SELECT u FROM User u WHERE u.username = :name"),
+        @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :id"),
         @NamedQuery(name = "User.getAllUsers", query = "SELECT u FROM User u"),
         @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
         @NamedQuery(name = "User.isFollowing", query = "SELECT u FROM User u WHERE u.username = :username AND :checkUser MEMBER OF u.following")
@@ -62,7 +62,6 @@ public class User {
         this.website = userDTO.getWebsite();
         this.bio = userDTO.getBio();
         this.profilePicturePath = userDTO.getProfilePicturePath();
-        this.role = userDTO.getRole();
     }
 
     public UUID getId() {
