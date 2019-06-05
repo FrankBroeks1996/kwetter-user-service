@@ -4,7 +4,6 @@
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
-
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -293,9 +292,9 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it to run 
+            <!-- The default profile skips all tests, though you can tune it to run
                 just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including Arquillian 
+            <!-- Seperate profiles are provided for running all tests, including Arquillian
                 tests that execute in the specified container -->
             <id>default</id>
             <activation>
@@ -307,7 +306,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${version.surefire.plugin}</version>
                         <configuration>
-                            <skip>false</skip>
+                            <skip>true</skip>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -346,11 +345,11 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when 
+            <!-- When built in OpenShift the 'openshift' profile will be used when
                 invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app 
+            <!-- Use this profile for any OpenShift specific customization your app
                 will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' 
+            <!-- By default that is to put the resulting archive into the 'deployments'
                 folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
