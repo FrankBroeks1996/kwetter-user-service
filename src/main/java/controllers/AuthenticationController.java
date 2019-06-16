@@ -36,10 +36,8 @@ public class AuthenticationController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(RegisterDTO registerDTO){
         try{
-            User user = new User();
-            user.setUsername(registerDTO.getUsername());
-            user.setPassword(registerDTO.getPassword());
-            if(userService.login(user)) {
+            User user = userService.login(registerDTO.getUsername(), registerDTO.getPassword());
+            if(user != null) {
                 String token = issueToken(user.getUsername(), user.getId().toString());
 
                 return Response.ok().header(AUTHORIZATION, "Bearer " + token).header("Access-Control-Expose-Headers", "Authorization").build();

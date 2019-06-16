@@ -5,6 +5,7 @@ import models.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Stateless
 public class UserService {
 
-    @EJB(beanName = "UserDAOImpl")
+    @EJB(beanName =  "UserDAOImpl")
     private IUserDAO userDAO;
 
     public void addUser(User user){
@@ -23,11 +24,13 @@ public class UserService {
         return userDAO.getUserById(userId);
     }
 
+    public User getUserByUsername(String username) { return  userDAO.getUserByUsername(username); }
+
     public void editUser(User user){
         userDAO.editUser(user);
     }
 
-    public boolean login(User user){return userDAO.login(user);}
+    public User login(String username, String password){return userDAO.login(username, password);}
 
     public Set<User> getAllFollowing(User user){
         return userDAO.getAllFollowing(user);
@@ -51,5 +54,11 @@ public class UserService {
 
     public boolean isFollowing(User currentUser, User checkUser){
         return userDAO.isFollowing(currentUser, checkUser);
+    }
+
+    public List<User> getUsers(List<UUID> authors){ return userDAO.getUsers(authors); }
+
+    public void setUserDAO(IUserDAO userDAO){
+        this.userDAO = userDAO;
     }
 }

@@ -13,6 +13,8 @@ public interface IUserDAO {
 
     User getUserById(UUID userId);
 
+    User getUserByUsername(String username);
+
     void followUser(User currentUser, User userToBeFollowed);
 
     void unFollowUser(User currentUser, User userToBeUnFollowed);
@@ -25,5 +27,7 @@ public interface IUserDAO {
 
     boolean isFollowing(User currentUser, User checkUser);
 
-    boolean login(User user);
+    User login(String username, String password);
+
+    List<User> getUsers(List<UUID> authors);
 }

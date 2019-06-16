@@ -2,6 +2,7 @@ package models;
 
 import dtos.UserDTO;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.util.*;
 
@@ -9,9 +10,13 @@ import java.util.*;
 @Table(name = "USER")
 @NamedQueries({
         @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :id"),
+        @NamedQuery(name = "User.getUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
         @NamedQuery(name = "User.getAllUsers", query = "SELECT u FROM User u"),
         @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
-        @NamedQuery(name = "User.isFollowing", query = "SELECT u FROM User u WHERE u.username = :username AND :checkUser MEMBER OF u.following")
+        @NamedQuery(name = "User.isFollowing", query = "SELECT u FROM User u WHERE u.username = :username AND :checkUser MEMBER OF u.following"),
+        @NamedQuery(name = "User.getUsers", query = "SELECT u FROM User u WHERE u.id IN :authors"),
+        @NamedQuery(name = "User.getAllFollowing", query = "SELECT u FROM User u WHERE :current MEMBER OF u.followers"),
+        @NamedQuery(name = "User.getAllFollowers", query = "SELECT u FROM User u WHERE :current MEMBER OF u.following")
 })
 public class User {
 

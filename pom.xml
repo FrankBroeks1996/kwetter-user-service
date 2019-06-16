@@ -22,10 +22,9 @@
     <artifactId>Kwetter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>WildFly Quickstarts: Kwetter</name>
-    <description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
+    <name>Kwetter user service</name>
+    <description>The user service for kwetter</description>
 
-    <url>http://wildfly.org</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -263,6 +262,13 @@
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <version>3.4.0.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jboss.arquillian.extension/arquillian-transaction-jta -->
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-jta</artifactId>
+            <version>1.0.5</version>
         </dependency>
 
     </dependencies>

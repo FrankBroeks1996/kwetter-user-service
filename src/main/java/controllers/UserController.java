@@ -1,6 +1,7 @@
 package controllers;
 
 import dtos.UserDTO;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import models.User;
 import security.TokenNeeded;
 import services.UserService;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Path("user")
@@ -32,11 +34,18 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @TokenNeeded
     public UserDTO getUserById(@PathParam("userId") String userId){
-        UserDTO userDTO = new UserDTO(userService.getUserById(UUID.fromString(userId)));
-        return userDTO;
+        return new UserDTO(userService.getUserById(UUID.fromString(userId)));
     }
 
-    //@PATCH
+    @GET
+    @Path("getUserByUsername/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @TokenNeeded
+    public UserDTO getUserByUsername(@PathParam("username") String username){
+        return new UserDTO(userService.getUserByUsername(username));
+    }
+
+    @PATCH
     @Path("editUser")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,23 +66,23 @@ public class UserController {
     }
 
     @POST
-    @Path("followUser/{username}")
+    @Path("followUser/{userId}")
     @TokenNeeded
-    public void followUser(@PathParam("username") String username){
+    public void followUser(@PathParam("userId") UUID userId){
         Principal principal = context.getUserPrincipal();
         User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
-        User userToBeFollowed = userService.getUserById(UUID.fromString(username));
+        User userToBeFollowed = userService.getUserById(userId);
 
         userService.followUser(currentUser, userToBeFollowed);
     }
 
     @POST
-    @Path("unFollowUser/{username}")
+    @Path("unFollowUser/{userId}")
     @TokenNeeded
-    public void unFollowUser(@PathParam("username") String username){
+    public void unFollowUser(@PathParam("userId") UUID userId){
         Principal principal = context.getUserPrincipal();
         User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
-        User userToBeUnfollowed = userService.getUserById(UUID.fromString(username));
+        User userToBeUnfollowed = userService.getUserById(userId);
 
         userService.unFollowUser(currentUser, userToBeUnfollowed);
     }
@@ -99,11 +108,11 @@ public class UserController {
     }
 
     @GET
-    @Path("getFollowing/{username}")
+    @Path("getFollowing/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     @TokenNeeded
-    public List<UserDTO> getAllFollowing(@PathParam("username") String username){
-        User currentUser = userService.getUserById(UUID.fromString(username));
+    public List<UserDTO> getAllFollowing(@PathParam("userId") UUID userId){
+        User currentUser = userService.getUserById(userId);
 
         List<UserDTO> usersFollowingDtoList = new ArrayList<>();
         for (User user : userService.getAllFollowing(currentUser)){
@@ -126,5 +135,19 @@ public class UserController {
         }
 
         return usersFollowerDtoList;
+    }
+
+    @POST
+    @Path("getUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @TokenNeeded
+    public List<UserDTO> getUsers(List<UUID> authors){
+        List<UserDTO> userDtos = new ArrayList<>();
+        for (User user : userService.getUsers(authors)){
+            userDtos.add(new UserDTO(user));
+        }
+
+        return userDtos;
     }
 }

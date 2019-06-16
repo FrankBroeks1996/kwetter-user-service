@@ -1,5 +1,6 @@
 package daos;
 
+import database.memory.InMemoryDatabase;
 import models.User;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.enterprise.inject.Default;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -33,6 +35,10 @@ public class UserDAOImpl implements IUserDAO {
         return em.createNamedQuery("User.getUserById", User.class).setParameter("id", userId).getSingleResult();
     }
 
+    public User getUserByUsername(String username){
+        return em.createNamedQuery("User.getUserByUsername", User.class).setParameter("username", username).getSingleResult();
+    }
+
     public void followUser(User currentUser, User userToBeFollowed){
         userToBeFollowed.getFollowers().add(currentUser);
         em.merge(userToBeFollowed);
@@ -44,11 +50,11 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     public Set<User> getAllFollowers(User user){
-        return user.getFollowers();
+        return new HashSet<>(em.createNamedQuery("User.getAllFollowers", User.class).setParameter("current", user).getResultList());
     }
 
     public Set<User> getAllFollowing(User user){
-        return user.getFollowing();
+        return new HashSet<>(em.createNamedQuery("User.getAllFollowing", User.class).setParameter("current", user).getResultList());
     }
 
     public List<User> getAllUsers() {
@@ -68,17 +74,17 @@ public class UserDAOImpl implements IUserDAO {
         }
     }
 
-    public boolean login(User user){
+    public User login(String username, String password){
         try {
-            User u = em.createNamedQuery("User.login", User.class).setParameter("username", user.getUsername()).setParameter("password", user.getPassword()).getSingleResult();
-            if (u == null) {
-                return false;
-            } else {
-                return true;
-            }
+            return em.createNamedQuery("User.login", User.class).setParameter("username", username).setParameter("password", password).getSingleResult();
         }
         catch (Exception ex){
-            return false;
+            return null;
         }
+    }
+
+    @Override
+    public List<User> getUsers(List<UUID> authors) {
+        return em.createNamedQuery("User.getUsers", User.class).setParameter("authors", authors).getResultList();
     }
 }
