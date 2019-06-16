@@ -1,22 +1,15 @@
 package controllers;
 
 import dtos.UserDTO;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import models.User;
 import security.TokenNeeded;
 import services.UserService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.*;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Path("user")
 public class UserController {
@@ -32,7 +25,6 @@ public class UserController {
     @GET
     @Path("getUserById/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TokenNeeded
     public UserDTO getUserById(@PathParam("userId") String userId){
         return new UserDTO(userService.getUserById(UUID.fromString(userId)));
     }
@@ -40,7 +32,6 @@ public class UserController {
     @GET
     @Path("getUserByUsername/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TokenNeeded
     public UserDTO getUserByUsername(@PathParam("username") String username){
         return new UserDTO(userService.getUserByUsername(username));
     }
@@ -110,7 +101,6 @@ public class UserController {
     @GET
     @Path("getFollowing/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TokenNeeded
     public List<UserDTO> getAllFollowing(@PathParam("userId") UUID userId){
         User currentUser = userService.getUserById(userId);
 
@@ -125,7 +115,6 @@ public class UserController {
     @GET
     @Path("getFollowers/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    @TokenNeeded
     public List<UserDTO> getAllFollowers(@PathParam("username") String username){
         User currentUser = userService.getUserById(UUID.fromString(username));
 
@@ -141,7 +130,6 @@ public class UserController {
     @Path("getUsers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @TokenNeeded
     public List<UserDTO> getUsers(List<UUID> authors){
         List<UserDTO> userDtos = new ArrayList<>();
         for (User user : userService.getUsers(authors)){
@@ -149,5 +137,20 @@ public class UserController {
         }
 
         return userDtos;
+    }
+
+    @GET
+    @Path("search/{searchQuery}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserDTO> search(@PathParam("searchQuery") String searchQuery, @QueryParam("resultPage") int resultPage, @QueryParam("resultSize") int resultSize){
+        List<UserDTO> searchResult = new ArrayList<>();
+
+        List<User> users = userService.getSearchResult(searchQuery, resultPage, resultSize);
+
+        for (User user : users){
+            searchResult.add(new UserDTO(user));
+        }
+
+        return searchResult;
     }
 }

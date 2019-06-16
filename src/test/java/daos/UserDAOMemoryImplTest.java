@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 import javax.enterprise.inject.Specializes;
 
 @RunWith(Arquillian.class)
-@Specializes
 public class UserDAOMemoryImplTest extends UserDAOTest{
 
     @Deployment

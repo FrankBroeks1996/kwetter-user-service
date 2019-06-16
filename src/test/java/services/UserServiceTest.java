@@ -212,4 +212,21 @@ public class UserServiceTest {
 
         assertEquals(2, _userService.getUsers(users).size());
     }
+
+    @Test
+    public void getSearchResult(){
+        User user1 = new User();
+        user1.setUsername("TestUser1");
+        _userService.addUser(user1);
+
+        User user2 = new User();
+        user2.setUsername("TestUser2");
+        _userService.addUser(user2);
+
+        User user3 = new User();
+        user3.setUsername("Test3");
+        _userService.addUser(user3);
+
+        assertEquals(2, _userService.getSearchResult("User", 1, 10).size());
+    }
 }

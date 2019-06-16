@@ -87,4 +87,12 @@ public class UserDAOImpl implements IUserDAO {
     public List<User> getUsers(List<UUID> authors) {
         return em.createNamedQuery("User.getUsers", User.class).setParameter("authors", authors).getResultList();
     }
+
+    @Override
+    public List<User> getSearchResult(String searchQuery, int resultPage, int resultSize) {
+        return em.createNamedQuery("User.searchUsers", User.class)
+                .setFirstResult((resultPage-1) * resultSize)
+                .setMaxResults(resultSize)
+                .setParameter("searchQuery", "%" + searchQuery + "%").getResultList();
+    }
 }

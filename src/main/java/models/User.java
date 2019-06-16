@@ -16,7 +16,8 @@ import java.util.*;
         @NamedQuery(name = "User.isFollowing", query = "SELECT u FROM User u WHERE u.username = :username AND :checkUser MEMBER OF u.following"),
         @NamedQuery(name = "User.getUsers", query = "SELECT u FROM User u WHERE u.id IN :authors"),
         @NamedQuery(name = "User.getAllFollowing", query = "SELECT u FROM User u WHERE :current MEMBER OF u.followers"),
-        @NamedQuery(name = "User.getAllFollowers", query = "SELECT u FROM User u WHERE :current MEMBER OF u.following")
+        @NamedQuery(name = "User.getAllFollowers", query = "SELECT u FROM User u WHERE :current MEMBER OF u.following"),
+        @NamedQuery(name = "User.searchUsers", query = "SELECT u FROM User u WHERE u.username LIKE :searchQuery"),
 })
 public class User {
 

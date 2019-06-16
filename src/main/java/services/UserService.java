@@ -58,6 +58,8 @@ public class UserService {
 
     public List<User> getUsers(List<UUID> authors){ return userDAO.getUsers(authors); }
 
+    public List<User> getSearchResult(String searchQuery, int resultPage, int resultSize){return userDAO.getSearchResult(searchQuery, resultPage, resultSize);}
+
     public void setUserDAO(IUserDAO userDAO){
         this.userDAO = userDAO;
     }

@@ -30,4 +30,6 @@ public interface IUserDAO {
     User login(String username, String password);
 
     List<User> getUsers(List<UUID> authors);
+
+    List<User> getSearchResult(String searchQuery, int resultPage, int resultSize);
 }

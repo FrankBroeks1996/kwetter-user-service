@@ -96,4 +96,13 @@ public class UserDAOMemoryImpl implements IUserDAO {
                 .filter(u -> authors.stream().anyMatch(a -> a == u.getId()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<User> getSearchResult(String searchQuery, int resultPage, int resultSize) {
+        return InMemoryDatabase.getInMemoryDatabase()
+                .getUsers()
+                .stream()
+                .filter(u -> u.getUsername().contains(searchQuery))
+                .collect(Collectors.toList());
+    }
 }
