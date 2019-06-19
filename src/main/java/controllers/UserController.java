@@ -2,6 +2,7 @@ package controllers;
 
 import dtos.UserDTO;
 import models.User;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import security.TokenNeeded;
 import services.UserService;
 
@@ -25,15 +26,15 @@ public class UserController {
     @GET
     @Path("getUserById/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO getUserById(@PathParam("userId") String userId){
-        return new UserDTO(userService.getUserById(UUID.fromString(userId)));
+    public Response getUserById(@PathParam("userId") String userId){
+        return Response.ok().entity(new UserDTO(userService.getUserById(UUID.fromString(userId)))).build();
     }
 
     @GET
     @Path("getUserByUsername/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO getUserByUsername(@PathParam("username") String username){
-        return new UserDTO(userService.getUserByUsername(username));
+    public Response getUserByUsername(@PathParam("username") String username){
+        return Response.ok().entity(new UserDTO(userService.getUserByUsername(username))).build();
     }
 
     @PATCH
@@ -59,49 +60,56 @@ public class UserController {
     @POST
     @Path("followUser/{userId}")
     @TokenNeeded
-    public void followUser(@PathParam("userId") UUID userId){
+    public Response followUser(@PathParam("userId") UUID userId){
         Principal principal = context.getUserPrincipal();
         User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
         User userToBeFollowed = userService.getUserById(userId);
 
         userService.followUser(currentUser, userToBeFollowed);
+
+        return Response.ok().build();
     }
 
     @POST
     @Path("unFollowUser/{userId}")
     @TokenNeeded
-    public void unFollowUser(@PathParam("userId") UUID userId){
+    @Transactional
+    public Response unFollowUser(@PathParam("userId") UUID userId){
         Principal principal = context.getUserPrincipal();
         User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
         User userToBeUnfollowed = userService.getUserById(userId);
 
         userService.unFollowUser(currentUser, userToBeUnfollowed);
+
+        return Response.ok().build();
     }
 
     @GET
     @Path("isFollowing/{userId}")
     @TokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean isFollowing(@PathParam("userId") String userId){
+    public Response isFollowing(@PathParam("userId") String userId){
         Principal principal = context.getUserPrincipal();
         User currentUser = userService.getUserById(UUID.fromString(principal.getName()));
         User checkUser = userService.getUserById(UUID.fromString(userId));
 
-        return userService.isFollowing(currentUser, checkUser);
+        return Response.ok().entity(userService.isFollowing(currentUser, checkUser)).build();
     }
 
     @POST
     @Path("editUserRole")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void editUserRole(UserDTO userDTO){
+    public Response editUserRole(UserDTO userDTO){
         User user = new User(userDTO);
         userService.editUser(user);
+
+        return Response.ok().build();
     }
 
     @GET
     @Path("getFollowing/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserDTO> getAllFollowing(@PathParam("userId") UUID userId){
+    public Response getAllFollowing(@PathParam("userId") UUID userId){
         User currentUser = userService.getUserById(userId);
 
         List<UserDTO> usersFollowingDtoList = new ArrayList<>();
@@ -109,13 +117,13 @@ public class UserController {
             usersFollowingDtoList.add(new UserDTO(user));
         }
 
-        return usersFollowingDtoList;
+        return Response.ok().entity(usersFollowingDtoList).build();
     }
 
     @GET
     @Path("getFollowers/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserDTO> getAllFollowers(@PathParam("username") String username){
+    public Response getAllFollowers(@PathParam("username") String username){
         User currentUser = userService.getUserById(UUID.fromString(username));
 
         List<UserDTO> usersFollowerDtoList = new ArrayList<>();
@@ -123,26 +131,26 @@ public class UserController {
             usersFollowerDtoList.add(new UserDTO(user));
         }
 
-        return usersFollowerDtoList;
+        return Response.ok().entity(usersFollowerDtoList).build();
     }
 
     @POST
     @Path("getUsers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<UserDTO> getUsers(List<UUID> authors){
+    public Response getUsers(List<UUID> authors){
         List<UserDTO> userDtos = new ArrayList<>();
         for (User user : userService.getUsers(authors)){
             userDtos.add(new UserDTO(user));
         }
 
-        return userDtos;
+        return Response.ok().entity(userDtos).build();
     }
 
     @GET
     @Path("search/{searchQuery}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserDTO> search(@PathParam("searchQuery") String searchQuery, @QueryParam("resultPage") int resultPage, @QueryParam("resultSize") int resultSize){
+    public Response search(@PathParam("searchQuery") String searchQuery, @QueryParam("resultPage") int resultPage, @QueryParam("resultSize") int resultSize){
         List<UserDTO> searchResult = new ArrayList<>();
 
         List<User> users = userService.getSearchResult(searchQuery, resultPage, resultSize);
@@ -151,6 +159,6 @@ public class UserController {
             searchResult.add(new UserDTO(user));
         }
 
-        return searchResult;
+        return Response.ok().entity(searchResult).build();
     }
 }

@@ -2,6 +2,7 @@ package daos;
 
 import database.memory.InMemoryDatabase;
 import models.User;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
@@ -44,8 +45,9 @@ public class UserDAOImpl implements IUserDAO {
         em.merge(userToBeFollowed);
     }
 
+    @Transactional
     public void unFollowUser(User currentUser, User userToBeUnFollowed) {
-        userToBeUnFollowed.getFollowers().removeIf( f -> f.getId() == currentUser.getId() );
+        userToBeUnFollowed.getFollowers().removeIf(f -> f.getId() == currentUser.getId());
         em.merge(userToBeUnFollowed);
     }
 
