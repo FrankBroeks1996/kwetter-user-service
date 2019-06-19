@@ -49,11 +49,11 @@ public class User {
     @ElementCollection
     private List<UUID> kweets = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "following", joinColumns = @JoinColumn(name = "following_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private Set<User> followers = new HashSet<>();
 
-    @ManyToMany(mappedBy = "followers", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> following = new HashSet<>();
 
     public User() {

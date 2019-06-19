@@ -15,24 +15,24 @@ import org.junit.runner.RunWith;
 
 import javax.enterprise.inject.Specializes;
 
-@RunWith(Arquillian.class)
-public class UserDAOMemoryImplTest extends UserDAOTest{
-
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClass(IUserDAO.class)
-                .addClass(UserDAOMemoryImpl.class)
-                .addClass(UserDAOTest.class)
-                .addClass(User.class)
-                .addClass(Role.class)
-                .addClass(UserDTO.class)
-                .addClass(InMemoryDatabase.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
-    @After
-    public void cleanUp(){
-        InMemoryDatabase.getInMemoryDatabase().cleanUp();
-    }
-}
+//@RunWith(Arquillian.class)
+//public class UserDAOMemoryImplTest extends UserDAOTest{
+//
+//    @Deployment
+//    public static JavaArchive createDeployment() {
+//        return ShrinkWrap.create(JavaArchive.class)
+//                .addClass(IUserDAO.class)
+//                .addClass(UserDAOMemoryImpl.class)
+//                .addClass(UserDAOTest.class)
+//                .addClass(User.class)
+//                .addClass(Role.class)
+//                .addClass(UserDTO.class)
+//                .addClass(InMemoryDatabase.class)
+//                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+//    }
+//
+//    @After
+//    public void cleanUp(){
+//        InMemoryDatabase.getInMemoryDatabase().cleanUp();
+//    }
+//}

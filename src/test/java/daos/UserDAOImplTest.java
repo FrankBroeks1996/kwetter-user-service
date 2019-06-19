@@ -17,21 +17,21 @@ import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@RunWith(Arquillian.class)
-public class UserDAOImplTest extends UserDAOTest {
-    public UserDAOImplTest() {
-    }
-
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClass(IUserDAO.class)
-                .addClass(UserDAOImpl.class)
-                .addClass(UserDAOTest.class)
-                .addClass(User.class)
-                .addClass(Role.class)
-                .addClass(UserDTO.class)
-                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-}
+//@RunWith(Arquillian.class)
+//public class UserDAOImplTest extends UserDAOTest {
+//    public UserDAOImplTest() {
+//    }
+//
+//    @Deployment
+//    public static JavaArchive createDeployment() {
+//        return ShrinkWrap.create(JavaArchive.class)
+//                .addClass(IUserDAO.class)
+//                .addClass(UserDAOImpl.class)
+//                .addClass(UserDAOTest.class)
+//                .addClass(User.class)
+//                .addClass(Role.class)
+//                .addClass(UserDTO.class)
+//                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+//                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+//    }
+//}

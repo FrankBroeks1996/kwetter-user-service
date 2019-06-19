@@ -2,6 +2,7 @@ package services;
 
 import daos.IUserDAO;
 import models.User;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -44,6 +45,7 @@ public class UserService {
         userDAO.followUser(currentUser, userToBeFollowed);
     }
 
+    @Transactional
     public void unFollowUser(User currentUser, User userToBeUnFollowed){
         userDAO.unFollowUser(currentUser, userToBeUnFollowed);
     }
